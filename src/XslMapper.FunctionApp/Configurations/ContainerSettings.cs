@@ -9,7 +9,10 @@
         /// Gets or sets the mappers container name.
         /// </summary>
         public virtual string Mappers { get; set; }
-
+        /// <summary>
+        /// Gets or sets the XML file container name.
+        /// </summary>
+        public virtual string XMLcontainer { get; set; }
         /// <summary>
         /// Gets or sets the extension objects container name.
         /// </summary>

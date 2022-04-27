@@ -55,5 +55,7 @@ namespace Aliencube.XslMapper.FunctionApp.Helpers
         /// <param name="inputXml">Input XML in text format.</param>
         /// <returns>Transformed XML in byte array.</returns>
         Task<byte[]> TransformAsync(string inputXml);
+        Task<string> LoadXmlAsync(string xMLcontainer, string directory, string name);
+     
     }
 }

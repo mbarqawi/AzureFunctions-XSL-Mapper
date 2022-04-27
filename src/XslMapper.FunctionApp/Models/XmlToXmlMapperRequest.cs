@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Aliencube.XslMapper.FunctionApp.Models
 {
@@ -19,6 +20,11 @@ namespace Aliencube.XslMapper.FunctionApp.Models
         /// Gets or sets the input XML.
         /// </summary>
         public string InputXml { get; set; }
+        /// <summary>
+        /// Gets or sets the input XML as file .
+        /// </summary>
+     
+        public XMLFile Inputxmlfile { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="XslMapper"/> instance.

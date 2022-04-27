@@ -62,10 +62,16 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
 
             try
             {
+                var xmlcontent="";
+                if (request.InputXml != null)
+                    xmlcontent = request.InputXml;
+                else if (request.Inputxmlfile != null)
+                    xmlcontent =await  this._helper.LoadXmlAsync(this._settings.Containers.XMLcontainer, request.Inputxmlfile.Directory, request.Inputxmlfile.Name);
+
                 var content = await this._helper
                                         .LoadXslAsync(this._settings.Containers.Mappers, request.Mapper.Directory, request.Mapper.Name)
                                         .AddArgumentsAsync(request.ExtensionObjects)
-                                        .TransformAsync(request.InputXml)
+                                        .TransformAsync(xmlcontent)
                                         .ToStringAsync(this._settings.EncodeBase64Output);
 
                 var result = new XmlToXmlMapperResponse() { Content = content };

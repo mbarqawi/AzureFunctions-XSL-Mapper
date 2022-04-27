@@ -15,6 +15,7 @@ namespace Aliencube.XslMapper.FunctionApp.Configurations
     public class AppSettings
     {
         private const string AzureWebJobsStorageKey = "AzureWebJobsStorage";
+        private const string StorageConnectionStringKey = "StorageConnectionString";
         private const string ContainersKey = "Containers";
         private const string EncodeBase64OutputKey = "EncodeBase64Output";
 
@@ -34,7 +35,7 @@ namespace Aliencube.XslMapper.FunctionApp.Configurations
             var config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
 
             this.JsonFormatter = new JsonMediaTypeFormatter() { SerializerSettings = jsonSerialiserSettings };
-            this.StorageConnectionString = config.GetValue<string>(AzureWebJobsStorageKey);
+            this.StorageConnectionString = config.GetValue<string>(StorageConnectionStringKey);
             this.Containers = config.Get<ContainerSettings>(ContainersKey);
             this.EncodeBase64Output = config.GetValue<bool>(EncodeBase64OutputKey);
         }

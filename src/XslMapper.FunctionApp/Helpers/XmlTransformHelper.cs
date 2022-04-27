@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
+
 using System.Xml.Xsl;
 
 using Aliencube.XslMapper.FunctionApp.Configurations;
@@ -122,8 +123,11 @@ namespace Aliencube.XslMapper.FunctionApp.Helpers
         public async Task<byte[]> TransformAsync(string inputXml)
         {
             this._transformStringReader = new StringReader(inputXml);
+            this._transformStringReader.Read();
             this._transformTextReader = XmlReader.Create(this._transformStringReader);
+            this._transformTextReader.Read();
 
+         
             return await this.TransformAsync(this._transformTextReader)
                              .ConfigureAwait(false);
         }
@@ -192,6 +196,18 @@ namespace Aliencube.XslMapper.FunctionApp.Helpers
             }
 
             this._disposed = true;
+        }
+
+        public async Task<string>  LoadXmlAsync(string xMLcontainer, string directory, string name)
+        {
+            var blob = await this._helper
+                            .LoadBlobAsync(xMLcontainer, directory, name)
+                            .ConfigureAwait(false);
+
+            var bytes = new byte[blob.Properties.Length];
+            await blob.DownloadToByteArrayAsync(bytes, 0).ConfigureAwait(false);
+
+            return  System.Text.Encoding.UTF8.GetString(bytes); ;
         }
     }
 }

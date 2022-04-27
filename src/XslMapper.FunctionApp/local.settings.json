@@ -3,10 +3,12 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
+    "StorageConnectionString": "UseDevelopmentStorage=true",
+    "Containers__XMLcontainer": "xml",
 
-    "Containers__Mappers": "mappers",
+    "Containers__Mappers": "mapper",
     "Containers__ExtensionObjects": "extensionobjects",
 
-    "EncodeBase64Output": true 
+    "EncodeBase64Output": true
   }
 }
