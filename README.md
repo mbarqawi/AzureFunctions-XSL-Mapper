@@ -58,6 +58,10 @@ Use the following payload structure for request.
         "directory": "",
         "name": "XMLFile1.xml"
     },
+       "Outputxmlfile": {
+        "directory": "",
+        "name": "XMLFile1out.xml"
+    },
     "mapper": {
         "directory": "",
         "name": "XSLTFile1.xslt"
