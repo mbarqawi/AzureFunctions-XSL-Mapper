@@ -51,6 +51,36 @@ Use the following payload structure for request.
 * `mapper`: Metadata information of XSL used for transformation.
 * `extensionObjects`: Metadata information of external objects referenced by the XSL file.
 
+#### payload with XML file ####
+```
+{
+    "Inputxmlfile": {
+        "directory": "",
+        "name": "XMLFile1.xml"
+    },
+    "mapper": {
+        "directory": "",
+        "name": "XSLTFile1.xslt"
+    }
+}
+```
+### sample App setting file values ###
+
+```
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
+    "StorageConnectionString": "UseDevelopmentStorage=true",
+    "Containers__XMLcontainer": "xml",
+    "Containers__Mappers": "mapper",
+    "Containers__ExtensionObjects": "extensionobjects",
+    "EncodeBase64Output": true
+  }
+}
+
+```
 
 ### XSL and Library Storage ##
 
