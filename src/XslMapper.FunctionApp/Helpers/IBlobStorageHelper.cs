@@ -18,5 +18,7 @@ namespace Aliencube.XslMapper.FunctionApp.Helpers
         /// <param name="filename">Filename of the blob.</param>
         /// <returns><see cref="CloudBlockBlob"/> instance.</returns>
         Task<CloudBlockBlob> LoadBlobAsync(string container, string directory, string filename);
+        Task<string> UploadBlobAsync(string container, string directory, string fileName, byte[] fileBytes);
+
     }
 }

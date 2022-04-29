@@ -25,6 +25,7 @@ namespace Aliencube.XslMapper.FunctionApp.Models
         /// </summary>
      
         public XMLFile Inputxmlfile { get; set; }
+        public XMLFile Outputxmlfile { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="XslMapper"/> instance.

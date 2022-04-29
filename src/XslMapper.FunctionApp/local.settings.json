@@ -5,10 +5,8 @@
     "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
     "StorageConnectionString": "UseDevelopmentStorage=true",
     "Containers__XMLcontainer": "xml",
-
     "Containers__Mappers": "mapper",
     "Containers__ExtensionObjects": "extensionobjects",
-
     "EncodeBase64Output": true
   }
 }

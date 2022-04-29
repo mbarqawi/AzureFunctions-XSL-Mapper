@@ -57,11 +57,17 @@ namespace Aliencube.XslMapper.FunctionApp.Extensions
         /// <param name="helper"><see cref="IXmlTransformHelper"/> instance.</param>
         /// <param name="inputXml">String value as input XML.</param>
         /// <returns>Byte array transformed.</returns>
-        public static async Task<byte[]> TransformAsync(this Task<IXmlTransformHelper> helper, string inputXml)
+        public static async Task<byte[]> TransformAsync(this Task<IXmlTransformHelper> helper, string inputXml, bool saveToBlob, string xMLcontainer, string directory, string name)
         {
             var instance = await helper.ConfigureAwait(false);
+          
+            var transfomationResult = await instance.TransformAsync(inputXml).ConfigureAwait(false);
+            if (saveToBlob)
+            {
+                await instance.Upload(xMLcontainer, directory, name, transfomationResult);
 
-            return await instance.TransformAsync(inputXml).ConfigureAwait(false);
+            }
+            return transfomationResult;
         }
     }
 }

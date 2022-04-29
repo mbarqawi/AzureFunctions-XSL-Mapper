@@ -43,7 +43,26 @@ namespace Aliencube.XslMapper.FunctionApp.Helpers
 
             return blob;
         }
+        public async Task<string> UploadBlobAsync(string container, string directory, string fileName, byte[] fileBytes)
+        {
+            if (!CloudStorageAccount.TryParse(this._settings.StorageConnectionString, out CloudStorageAccount account))
+            {
+                throw new CloudStorageNotFoundException();
+            }
+            var cloudblobClient = account.CreateCloudBlobClient();
+            var containerObject = cloudblobClient.GetContainerReference(container);
+            var fileobject = containerObject.GetBlockBlobReference($"{directory}/{fileName}");
+            //check the file type
+            string file_type;
+          
+                file_type = "application/octet-stream";
+           
 
+            fileobject.Properties.ContentType = file_type;
+            await fileobject.UploadFromByteArrayAsync(fileBytes, 0, fileBytes.Length);
+            string fileuploadURI = fileobject.Uri.AbsoluteUri;
+                        return fileuploadURI;
+        }
         /// <inheritdoc />
         public void Dispose()
         {

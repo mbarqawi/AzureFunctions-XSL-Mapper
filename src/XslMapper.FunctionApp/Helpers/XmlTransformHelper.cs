@@ -206,8 +206,13 @@ namespace Aliencube.XslMapper.FunctionApp.Helpers
 
             var bytes = new byte[blob.Properties.Length];
             await blob.DownloadToByteArrayAsync(bytes, 0).ConfigureAwait(false);
-
+            
             return  System.Text.Encoding.UTF8.GetString(bytes); ;
+        }
+        public async Task<string> Upload(string xMLcontainer, string directory, string name, byte[] fileBytes)
+        {
+            return await this._helper.UploadBlobAsync(xMLcontainer, directory, name, fileBytes);
+                           ;
         }
     }
 }

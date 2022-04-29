@@ -71,7 +71,7 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
                 var content = await this._helper
                                         .LoadXslAsync(this._settings.Containers.Mappers, request.Mapper.Directory, request.Mapper.Name)
                                         .AddArgumentsAsync(request.ExtensionObjects)
-                                        .TransformAsync(xmlcontent)
+                                        .TransformAsync(xmlcontent,true, this._settings.Containers.XMLcontainer, request.Outputxmlfile.Directory, request.Outputxmlfile.Name)
                                         .ToStringAsync(this._settings.EncodeBase64Output);
 
                 var result = new XmlToXmlMapperResponse() { Content = content };
