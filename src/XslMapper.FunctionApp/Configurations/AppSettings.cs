@@ -36,7 +36,8 @@ namespace Aliencube.XslMapper.FunctionApp.Configurations
 
             this.JsonFormatter = new JsonMediaTypeFormatter() { SerializerSettings = jsonSerialiserSettings };
             this.StorageConnectionString = config.GetValue<string>(StorageConnectionStringKey);
-            this.Containers = config.Get<ContainerSettings>(ContainersKey);
+            
+            this.Containers = config.GetValue<ContainerSettings>(ContainersKey);
             this.EncodeBase64Output = config.GetValue<bool>(EncodeBase64OutputKey);
         }
 

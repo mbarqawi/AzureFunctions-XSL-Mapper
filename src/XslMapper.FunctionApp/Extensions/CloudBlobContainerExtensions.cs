@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 
 using Aliencube.XslMapper.FunctionApp.Exceptions;
-
 using Microsoft.WindowsAzure.Storage.Blob;
+
+//using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Aliencube.XslMapper.FunctionApp.Extensions
 {
