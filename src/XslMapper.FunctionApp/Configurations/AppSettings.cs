@@ -23,7 +23,11 @@ namespace Aliencube.XslMapper.FunctionApp.Configurations
         /// Initializes a new instance of the <see cref="AppSettings"/> class.
         /// </summary>
         public AppSettings()
+
         {
+            //Console.WriteLine("hi0");
+            System.Diagnostics.Debugger.Launch();
+            
             var jsonSerialiserSettings = new JsonSerializerSettings()
                                              {
                                                  Formatting = Formatting.Indented,
@@ -37,7 +41,7 @@ namespace Aliencube.XslMapper.FunctionApp.Configurations
             this.JsonFormatter = new JsonMediaTypeFormatter() { SerializerSettings = jsonSerialiserSettings };
             this.StorageConnectionString = config.GetValue<string>(StorageConnectionStringKey);
             
-            this.Containers = config.GetValue<ContainerSettings>(ContainersKey);
+            this.Containers = config.GetSection(ContainersKey).Get<ContainerSettings>();
             this.EncodeBase64Output = config.GetValue<bool>(EncodeBase64OutputKey);
         }
 

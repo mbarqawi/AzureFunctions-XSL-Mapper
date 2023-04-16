@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C5D8E716-288D-4792-A25E-BF2F79899946}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{281B7525-B1DB-438E-802C-50EF7E5EC49B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XslMapper.FunctionApp", "src\XslMapper.FunctionApp\XslMapper.FunctionApp.csproj", "{78A1342E-81AA-46E3-9BB9-02FF68ACF616}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XslMapper.FunctionApp", "src\XslMapper.FunctionApp\XslMapper.FunctionApp.csproj", "{78A1342E-81AA-46E3-9BB9-02FF68ACF616}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XslMapper.FunctionApp.Tests", "test\XslMapper.FunctionApp.Tests\XslMapper.FunctionApp.Tests.csproj", "{CF650A66-11BF-4ECA-AC69-077505551F0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XslMapper.FunctionApp.Tests", "test\XslMapper.FunctionApp.Tests\XslMapper.FunctionApp.Tests.csproj", "{CF650A66-11BF-4ECA-AC69-077505551F0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

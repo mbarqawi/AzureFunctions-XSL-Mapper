@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-using System.Net.Http;
+using Microsoft.Azure.Functions.Worker.Http;
 using System.Threading.Tasks;
 
 using Aliencube.AzureFunctions.Extensions.DependencyInjection.Abstractions;
@@ -11,6 +11,7 @@ using Aliencube.XslMapper.FunctionApp.Helpers;
 using Aliencube.XslMapper.FunctionApp.Models;
 
 using Microsoft.Extensions.Logging;
+using Grpc.Core;
 
 namespace Aliencube.XslMapper.FunctionApp.Functions
 {
@@ -37,13 +38,12 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
         {
             this.Log.LogInformation("C# HTTP trigger function processed a request.");
 
-            var req = input as HttpRequestMessage;
+            var req = input as HttpRequestData;
             var request = (XmlToXmlMapperRequest)null;
-            var response = (HttpResponseMessage)null;
+            var response = (HttpResponseData)null;
             try
             {
-                request = await req.Content
-                                   .ReadAsAsync<XmlToXmlMapperRequest>()
+                request = await req.ReadFromJsonAsync<XmlToXmlMapperRequest>()
                                    .ConfigureAwait(false);
             }
             catch (Exception ex)
@@ -51,7 +51,8 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
                 var statusCode = HttpStatusCode.BadRequest;
                 var result = new ErrorResponse((int)statusCode, ex.Message, ex.StackTrace);
 
-                response = req.CreateResponse(HttpStatusCode.BadRequest, result);
+                response = req.CreateResponse(HttpStatusCode.BadRequest);
+                _ = response.WriteAsJsonAsync(result).ConfigureAwait(false); 
 
                 this.Log.LogError($"Request payload was invalid.");
                 this.Log.LogError(ex.Message);
@@ -76,14 +77,18 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
 
                 var result = new XmlToXmlMapperResponse() { Content = content };
 
-                response = req.CreateResponse(HttpStatusCode.OK, result, this._settings.JsonFormatter);
+                //response = req.CreateResponse(HttpStatusCode.OK, result, this._settings.JsonFormatter);
+
+                response = req.CreateResponse(HttpStatusCode.OK);
+                _ = response.WriteAsJsonAsync(result).ConfigureAwait(false);
             }
             catch (CloudStorageNotFoundException ex)
             {
                 var statusCode = HttpStatusCode.InternalServerError;
                 var err = new ErrorResponse((int)statusCode, ex.Message, ex.StackTrace);
 
-                response = req.CreateResponse(statusCode, err);
+                response = req.CreateResponse(statusCode);
+                _ = response.WriteAsJsonAsync(err).ConfigureAwait(false);
             }
             catch (BlobContainerNotFoundException ex)
             {
@@ -93,7 +98,8 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
                 this.Log.LogError($"Request payload was invalid.");
                 this.Log.LogError($"XSL mapper not found");
 
-                response = req.CreateResponse(statusCode, err);
+                response = req.CreateResponse(statusCode);
+                _ = response.WriteAsJsonAsync(err).ConfigureAwait(false);
             }
             catch (BlobNotFoundException ex)
             {
@@ -103,14 +109,16 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
                 this.Log.LogError($"Request payload was invalid.");
                 this.Log.LogError($"XSL mapper not found");
 
-                response = req.CreateResponse(statusCode, err);
+                response = req.CreateResponse(statusCode);
+                _ = response.WriteAsJsonAsync(err).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 var statusCode = HttpStatusCode.InternalServerError;
                 var err = new ErrorResponse((int)statusCode, ex.Message, ex.StackTrace);
 
-                response = req.CreateResponse(statusCode, err);
+                response = req.CreateResponse(statusCode);
+                _ = response.WriteAsJsonAsync(err).ConfigureAwait(false);
             }
 
             return (TOutput)Convert.ChangeType(response, typeof(TOutput));
