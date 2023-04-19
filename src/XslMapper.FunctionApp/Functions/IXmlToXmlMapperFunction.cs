@@ -1,6 +1,7 @@
 ﻿using Aliencube.AzureFunctions.Extensions.DependencyInjection.Abstractions;
-
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Aliencube.XslMapper.FunctionApp.Functions
 {
@@ -9,5 +10,7 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
     /// </summary>
     public interface IXmlToXmlMapperFunction : IFunction<ILogger>
     {
+        Task<HttpResponseData> InvokeAsync2(HttpRequestData input, FunctionOptionsBase options = null);
     }
+   
 }

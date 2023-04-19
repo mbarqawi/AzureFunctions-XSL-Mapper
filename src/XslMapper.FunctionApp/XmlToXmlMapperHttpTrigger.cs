@@ -60,15 +60,15 @@ namespace Aliencube.XslMapper.FunctionApp
             {
 
 
-                AppSettings mya = new AppSettings();
-                BlobStorageHelper myBlobStorageHelper = new BlobStorageHelper(mya);
-                XmlTransformHelper myXmlTransformHelper = new XmlTransformHelper(mya, myBlobStorageHelper);
-                XmlToXmlMapperFunction myXmlToXmlMapperFunction = new XmlToXmlMapperFunction(mya, myXmlTransformHelper);
+                //AppSettings mya = new AppSettings();
+                //BlobStorageHelper myBlobStorageHelper = new BlobStorageHelper(mya);
+                //XmlTransformHelper myXmlTransformHelper = new XmlTransformHelper(mya, myBlobStorageHelper);
+                //XmlToXmlMapperFunction myXmlToXmlMapperFunction = new XmlToXmlMapperFunction(mya, myXmlTransformHelper);
 
                 //result = await myXmlToXmlMapperFunction.InvokeAsync<HttpRequestData, HttpResponseData>(req).ConfigureAwait(false);
                
                 result = await Factory.Create<IXmlToXmlMapperFunction, ILogger>(_logger)
-                                       .InvokeAsync<HttpRequestData, HttpResponseData>(req)
+                                       .InvokeAsync2(req)
 .ConfigureAwait(false);
             }
             catch (Exception ex)

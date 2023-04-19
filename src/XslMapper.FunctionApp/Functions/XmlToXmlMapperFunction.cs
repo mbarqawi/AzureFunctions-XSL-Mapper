@@ -11,7 +11,7 @@ using Aliencube.XslMapper.FunctionApp.Helpers;
 using Aliencube.XslMapper.FunctionApp.Models;
 
 using Microsoft.Extensions.Logging;
-using Grpc.Core;
+
 
 namespace Aliencube.XslMapper.FunctionApp.Functions
 {
@@ -34,7 +34,12 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
             this._helper = helper ?? throw new ArgumentNullException(nameof(helper));
         }
 
-        public override async Task<TOutput> InvokeAsync<TInput, TOutput>(TInput input, FunctionOptionsBase options = null)
+        public override Task<TOutput> InvokeAsync<TInput, TOutput>(TInput input, FunctionOptionsBase options = null)
+        {
+            return base.InvokeAsync<TInput, TOutput>(input, options);
+        }
+
+        public  async Task<HttpResponseData> InvokeAsync2(HttpRequestData input, FunctionOptionsBase options = null)
         {
             this.Log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -43,8 +48,9 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
             var response = (HttpResponseData)null;
             try
             {
-                request = await req.ReadFromJsonAsync<XmlToXmlMapperRequest>()
-                                   .ConfigureAwait(false);
+                //var text = req.ReadAsString(System.Text.Encoding.UTF8);
+                request = await req.ReadFromJsonAsync<XmlToXmlMapperRequest>();
+                            
             }
             catch (Exception ex)
             {
@@ -58,7 +64,8 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
                 this.Log.LogError(ex.Message);
                 this.Log.LogError(ex.StackTrace);
 
-                return (TOutput)Convert.ChangeType(response, typeof(TOutput));
+                return response;
+                   // (TOutput)Convert.ChangeType(, typeof(TOutput));
             }
 
             try
@@ -80,7 +87,7 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
                 //response = req.CreateResponse(HttpStatusCode.OK, result, this._settings.JsonFormatter);
 
                 response = req.CreateResponse(HttpStatusCode.OK);
-                _ = response.WriteAsJsonAsync(result).ConfigureAwait(false);
+                _ = response.WriteAsJsonAsync<XmlToXmlMapperResponse>(result).ConfigureAwait(false);
             }
             catch (CloudStorageNotFoundException ex)
             {
@@ -121,7 +128,8 @@ namespace Aliencube.XslMapper.FunctionApp.Functions
                 _ = response.WriteAsJsonAsync(err).ConfigureAwait(false);
             }
 
-            return (TOutput)Convert.ChangeType(response, typeof(TOutput));
+            //return (TOutput)Convert.ChangeType(response, typeof(HttpResponseData));
+            return response;
         }
     }
 }

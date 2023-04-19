@@ -123,7 +123,7 @@ namespace Aliencube.XslMapper.FunctionApp.Helpers
         public async Task<byte[]> TransformAsync(string inputXml)
         {
             this._transformStringReader = new StringReader(inputXml);
-            this._transformStringReader.Read();
+            //this._transformStringReader.Read();
             this._transformTextReader = XmlReader.Create(this._transformStringReader);
             this._transformTextReader.Read();
 

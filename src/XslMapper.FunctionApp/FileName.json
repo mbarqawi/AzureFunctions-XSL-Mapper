@@ -1,0 +1,16 @@
+{
+  "hhh": "jjj",
+
+  "Inputxmlfile": {
+    "directory": "inputcontainer",
+    "name": "343cd378-e59c-4e47-8202-dac61c68bcd6.xml"
+  },
+  "Outputxmlfile": {
+    "directory": "outputcontainer",
+    "name": "343cd378-e59c-4e47-8202-dac61c68bcd6.xml"
+  },
+  "mapper": {
+    "directory": "mappers",
+    "name": "PaymentcaptureSource_PSS_ICF.xsldddt"
+  }
+}
